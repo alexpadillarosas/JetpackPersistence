@@ -1,4 +1,4 @@
-package com.blueradix.android.jetpackpersistence.storage;
+package com.blueradix.android.jetpackpersistence;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,14 +9,14 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.blueradix.android.jetpackpersistence.storage.monster.dao.MonsterDao;
-import com.blueradix.android.jetpackpersistence.storage.monster.entity.Monster;
+import com.blueradix.android.jetpackpersistence.monster.Monster;
+import com.blueradix.android.jetpackpersistence.monster.MonsterDao;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Monster.class}, version = 1, exportSchema = false)
-public abstract class MonsterRoomDatabase extends RoomDatabase {
+public abstract class MonsterRoomDatabase extends RoomDatabase{
 
     /*  The database will expose the DAOs here. Declare one method per dao, the method will just return the dao  */
     //============= BEGIN DAO's methods section ===========
@@ -41,7 +41,6 @@ public abstract class MonsterRoomDatabase extends RoomDatabase {
                 if(INSTANCE == null){
                     INSTANCE = Room
                             .databaseBuilder(context.getApplicationContext(), MonsterRoomDatabase.class, "monster_database")
-//                            .allowMainThreadQueries()
                             .addCallback(roomCallback)
                             .build();
                 }
@@ -52,8 +51,6 @@ public abstract class MonsterRoomDatabase extends RoomDatabase {
 
     public static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback(){
         //onCreate will be call only the first time the database is created.
-
-
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
@@ -61,6 +58,7 @@ public abstract class MonsterRoomDatabase extends RoomDatabase {
             Log.i("XYZ", "onCreate Called");
         }
 
+        //onOpen will be called every time the database is opened
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
@@ -68,8 +66,12 @@ public abstract class MonsterRoomDatabase extends RoomDatabase {
         }
     };
 
+    /**
+     * method used to set up initial data for us to play with it.
+     * @param instance
+     */
     private static void populateInitialData(MonsterRoomDatabase instance) {
-
+        //we execute database operations in threads
         MonsterRoomDatabase.databaseWriteExecutor.execute( () -> {
             MonsterDao monsterDao = INSTANCE.monsterDao();
             monsterDao.insert(new Monster("Alex", "I'm an ugly mate", "", 5, 1, 4));

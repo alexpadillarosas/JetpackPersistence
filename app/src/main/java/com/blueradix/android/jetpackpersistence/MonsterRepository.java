@@ -1,28 +1,22 @@
-package com.blueradix.android.jetpackpersistence.storage.monster;
+package com.blueradix.android.jetpackpersistence;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import com.blueradix.android.jetpackpersistence.storage.MonsterRoomDatabase;
-import com.blueradix.android.jetpackpersistence.storage.monster.dao.MonsterDao;
-import com.blueradix.android.jetpackpersistence.storage.monster.entity.Monster;
+import com.blueradix.android.jetpackpersistence.monster.MonsterDao;
+import com.blueradix.android.jetpackpersistence.monster.Monster;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class MonsterRepository {
 
     private MonsterRoomDatabase db;
     //My repository needs to provide the DAOs, so here list all DAO's requested by the application.
     private MonsterDao monsterDao;
-
     /*
       The LiveData is done in order to use this list in a Recycler View.
         Therefore any changes in the database will be immediately reflected in the recyclerview */
@@ -74,9 +68,9 @@ public class MonsterRepository {
             monster = future.get();
             /*
             if(monster != null) {
-                Log.i("XYZ", "Monster is NOT null in Repository, " + monster.toString());
+                Log.i("XYZ", "Monster is NOT null in MonsterRepository, " + monster.toString());
             }else{
-                Log.i("XYZ", "Monster is null in Repository");
+                Log.i("XYZ", "Monster is null in MonsterRepository");
             }*/
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -86,30 +80,5 @@ public class MonsterRepository {
         return monster;
 
     }
-
-    /*
-    public List<Monster> findAllNoLiveData(){
-
-        final List<Monster>[] allNoLiveData =  (ArrayList<Monster>[]) new ArrayList[1];
-        //ArrayList<Individual>[] group = (ArrayList<Individual>[]) new ArrayList[4];
-        MonsterRoomDatabase.databaseWriteExecutor.execute( () -> {
-            allNoLiveData[0] = monsterDao.findAllNoLiveData();
-            if(allNoLiveData[0] != null) {
-                for (Monster monster : allNoLiveData[0]) {
-                    Log.i("XYZ", monster.toString());
-                }
-            }else{
-                Log.i("XYZ", "NOTHING!!!");
-            }
-        });
-        return allNoLiveData[0];
-
-    }
-
-    public List<Monster> findAllNoLiveDataNoExecutor(){
-        List<Monster> allNoLiveData = monsterDao.findAllNoLiveData();
-        return allNoLiveData;
-    }
-    */
 
 }

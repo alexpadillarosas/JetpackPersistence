@@ -1,15 +1,12 @@
-package com.blueradix.android.jetpackpersistence.storage.monster.dao;
+package com.blueradix.android.jetpackpersistence.monster;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
-
-import com.blueradix.android.jetpackpersistence.storage.monster.entity.Monster;
 
 import java.util.List;
 

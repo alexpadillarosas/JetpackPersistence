@@ -1,4 +1,4 @@
-package com.blueradix.android.jetpackpersistence.storage.monster.entity;
+package com.blueradix.android.jetpackpersistence.monster;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -92,6 +92,7 @@ public class Monster {
         this.stars = stars;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Monster{" +
