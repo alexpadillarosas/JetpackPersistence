@@ -10,6 +10,11 @@ import com.blueradix.android.jetpackpersistence.MonsterRepository;
 
 import java.util.List;
 
+/**
+ * Note in this case we extend from AndroidViewModel which extends ViewModel
+ * the reason: our repository needs a reference to the Application class and
+ * ViewModel does not provide it.
+ */
 public class MonsterViewModel extends AndroidViewModel {
 
     /*  As we can see in the Persistence Library Diagram, the view model will accept data requests

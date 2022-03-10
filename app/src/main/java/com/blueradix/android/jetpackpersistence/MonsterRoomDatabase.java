@@ -42,6 +42,7 @@ public abstract class MonsterRoomDatabase extends RoomDatabase{
                     INSTANCE = Room
                             .databaseBuilder(context.getApplicationContext(), MonsterRoomDatabase.class, "monster_database")
                             .addCallback(roomCallback)
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }
