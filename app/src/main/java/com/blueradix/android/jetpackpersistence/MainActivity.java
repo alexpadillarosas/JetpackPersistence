@@ -9,8 +9,6 @@ import com.blueradix.android.jetpackpersistence.monster.MonsterViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MonsterViewModel monsterViewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

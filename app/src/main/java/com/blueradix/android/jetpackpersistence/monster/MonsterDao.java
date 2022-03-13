@@ -29,9 +29,5 @@ public interface MonsterDao {
     @Query("SELECT * FROM MONSTER WHERE ID = :id")
     Monster findById(int id);
 
-    /*
-    @Query("SELECT * FROM MONSTER")
-    List<Monster> findAllNoLiveData();
-    */
 }
 
