@@ -12,7 +12,7 @@ public class Monster {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "ID")
-    private int id;
+    private Integer id;
 
     @ColumnInfo
     private String name;
